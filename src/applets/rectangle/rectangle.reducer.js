@@ -24,11 +24,11 @@ export const rectangleReducer = handleActions({
             isLoading: true
         }),
     [SET_RECTANGLE_SETTINGS_SUCCESS]:
-        (state, {x1, y1, x2, y2}) => ({
-            x1,
-            y1,
-            x2,
-            y2,
+        (state, {payload}) => ({
+            x1: payload.x1,
+            y1: payload.y1,
+            x2: payload.x2,
+            y2: payload.y2,
             isFailed: false,
             isLoading: false
         })

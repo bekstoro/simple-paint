@@ -1,7 +1,7 @@
-export const selectCanvasHeight = state => state.height;
+export const selectCanvasHeight = state => state.canvas.height;
 
-export const selectCanvasWidth = state => state.width;
+export const selectCanvasWidth = state => state.canvas.width;
 
-export const selectCanvasSettingsIsFailed = state => state.isFailed;
+export const selectCanvasSettingsIsFailed = state => state.canvas.isFailed;
 
-export const selectCanvasSettingsIsLoading = state => state.isLoading;
+export const selectCanvasSettingsIsLoading = state => state.canvas.isLoading;

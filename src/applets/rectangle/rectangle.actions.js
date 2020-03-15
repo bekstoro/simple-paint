@@ -1,5 +1,5 @@
 export const SET_RECTANGLE_SETTINGS_REQUEST = 'SET_RECTANGLE_SETTINGS_REQUEST';
-export const setRectangleSettingsRequest = () => ({type: SET_RECTANGLE_SETTINGS_REQUEST});
+export const setRectangleSettingsRequest = payload => ({type: SET_RECTANGLE_SETTINGS_REQUEST, payload});
 
 export const SET_RECTANGLE_SETTINGS_SUCCESS = 'SET_RECTANGLE_SETTINGS_SUCCESS';
 export const setRectangleSettingsSuccess = payload => ({type: SET_RECTANGLE_SETTINGS_SUCCESS, payload});

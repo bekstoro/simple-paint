@@ -1,4 +1,4 @@
-import {all, call, put, select, take} from 'redux-saga/effects';
+import {call, fork, put, select, take} from 'redux-saga/effects';
 import {SET_LINE_SETTINGS_REQUEST, setLineSettingsFailure, setLineSettingsSuccess} from './line.actions';
 import {selectCanvasHeight, selectCanvasWidth} from '../canvas';
 
@@ -9,17 +9,12 @@ function* validateLineSettingsSaga({x1, y1, x2, y2}) {
     return true;
 }
 
-function* setLineSettingsSaga(params) {
-    yield take(SET_LINE_SETTINGS_REQUEST);
-    const isValid = yield call(validateLineSettingsSaga, params);
-    if (isValid) {
-        yield put(setLineSettingsSuccess(params));
-    } else {
-        yield put(setLineSettingsFailure());
-    }
-    return isValid;
+function* setLineSettingsSaga() {
+    const {payload} = yield take(SET_LINE_SETTINGS_REQUEST);
+    const isValid = yield call(validateLineSettingsSaga, payload);
+    isValid ? yield put(setLineSettingsSuccess(payload)) : yield put(setLineSettingsFailure());
 }
 
 export function* lineSaga() {
-    yield all([setLineSettingsSaga]);
+    yield fork(setLineSettingsSaga);
 }

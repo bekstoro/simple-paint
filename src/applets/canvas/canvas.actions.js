@@ -1,5 +1,5 @@
 export const SET_CANVAS_SETTINGS_REQUEST = 'SET_CANVAS_SETTINGS_REQUEST';
-export const setCanvasSettingsRequest = () => ({type: SET_CANVAS_SETTINGS_REQUEST});
+export const setCanvasSettingsRequest = payload => ({type: SET_CANVAS_SETTINGS_REQUEST, payload});
 
 export const SET_CANVAS_SETTINGS_SUCCESS = 'SET_CANVAS_SETTINGS_SUCCESS';
 export const setCanvasSettingsSuccess = payload => ({type: SET_CANVAS_SETTINGS_SUCCESS, payload});

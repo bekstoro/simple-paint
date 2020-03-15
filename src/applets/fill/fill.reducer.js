@@ -23,10 +23,10 @@ export const fillReducer = handleActions({
             isLoading: true
         }),
     [SET_FILL_SETTINGS_SUCCESS]:
-        (state, {width, height, color}) => ({
-            width,
-            height,
-            color,
+        (state, {payload}) => ({
+            width: payload.width,
+            height: payload.height,
+            color: payload.color,
             isFailed: false,
             isLoading: false
         })

@@ -1,4 +1,4 @@
-import {all, call, put, select, take} from 'redux-saga/effects';
+import {call, fork, put, select, take} from 'redux-saga/effects';
 import {SET_FILL_SETTINGS_REQUEST, setFillSettingsFailure, setFillSettingsSuccess} from './fill.actions';
 import {selectCanvasHeight, selectCanvasWidth} from '../canvas';
 
@@ -9,17 +9,12 @@ function* validateFillSettingsSaga({width, height, color}) {
     return true;
 }
 
-function* setFillSettingsSaga(params) {
-    yield take(SET_FILL_SETTINGS_REQUEST);
-    const isValid = yield call(validateFillSettingsSaga, params);
-    if (isValid) {
-        yield put(setFillSettingsSuccess(params));
-    } else {
-        yield put(setFillSettingsFailure());
-    }
-    return isValid;
+function* setFillSettingsSaga() {
+    const {payload} = yield take(SET_FILL_SETTINGS_REQUEST);
+    const isValid = yield call(validateFillSettingsSaga, payload);
+    isValid ? yield put(setFillSettingsSuccess(payload)) : yield put(setFillSettingsFailure());
 }
 
 export function* fillSaga() {
-    yield all([setFillSettingsSaga]);
+    yield fork(setFillSettingsSaga);
 }

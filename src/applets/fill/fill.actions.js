@@ -1,5 +1,5 @@
 export const SET_FILL_SETTINGS_REQUEST = 'SET_FILL_SETTINGS_REQUEST';
-export const setFillSettingsRequest = () => ({type: SET_FILL_SETTINGS_REQUEST});
+export const setFillSettingsRequest = payload => ({type: SET_FILL_SETTINGS_REQUEST, payload});
 
 export const SET_FILL_SETTINGS_SUCCESS = 'SET_FILL_SETTINGS_SUCCESS';
 export const setFillSettingsSuccess = payload => ({type: SET_FILL_SETTINGS_SUCCESS, payload});

@@ -22,9 +22,9 @@ export const canvasReducer = handleActions({
             isLoading: true
         }),
     [SET_CANVAS_SETTINGS_SUCCESS]:
-        (state, {width, height}) => ({
-            width,
-            height,
+        (state, {payload}) => ({
+            width: payload.width,
+            height: payload.height,
             isFailed: false,
             isLoading: false
         })

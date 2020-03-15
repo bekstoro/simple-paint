@@ -1,4 +1,4 @@
-import {all, call, put, select, take} from 'redux-saga/effects';
+import {call, fork, put, select, take} from 'redux-saga/effects';
 import {SET_RECTANGLE_SETTINGS_REQUEST, setRectangleSettingsFailure, setRectangleSettingsSuccess} from './rectangle.actions';
 import {selectCanvasHeight, selectCanvasWidth} from '../canvas';
 
@@ -10,17 +10,12 @@ function* validateRectangleSettingsSaga({x1, y1, x2, y2}) {
     return true;
 }
 
-function* setRectangleSettingsSaga(params) {
-    yield take(SET_RECTANGLE_SETTINGS_REQUEST);
-    const isValid = yield call(validateRectangleSettingsSaga, params);
-    if (isValid) {
-        yield put(setRectangleSettingsSuccess(params));
-    } else {
-        yield put(setRectangleSettingsFailure());
-    }
-    return isValid;
+function* setRectangleSettingsSaga() {
+    const {payload} = yield take(SET_RECTANGLE_SETTINGS_REQUEST);
+    const isValid = yield call(validateRectangleSettingsSaga, payload);
+    isValid ? yield put(setRectangleSettingsSuccess(payload)) : yield put(setRectangleSettingsFailure());
 }
 
 export function* rectangleSaga() {
-    yield all([setRectangleSettingsSaga]);
+    yield fork(setRectangleSettingsSaga);
 }
