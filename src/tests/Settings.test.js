@@ -1,10 +1,10 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {App} from '../app/App';
+import {Settings} from '../screens/Settings.component';
 
-describe('App', () => {
+describe('Settings', () => {
     it('should render correctly', () => {
-        const component = shallow(<App/>);
+        const component = shallow(<Settings onSubmit={() => {}}/>);
         expect(component).toMatchSnapshot();
     });
 });
