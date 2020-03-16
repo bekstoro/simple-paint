@@ -11,16 +11,6 @@ import {LineSettings} from '../applets/line';
 import {RectangleSettings} from '../applets/rectangle';
 
 const styles = theme => ({
-    layout: {
-        width: 'auto',
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-            width: 600,
-            marginLeft: 'auto',
-            marginRight: 'auto'
-        }
-    },
     paper: {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
@@ -50,16 +40,14 @@ const SettingsComponent = ({classes}) => {
         return <div>Redirect to paint</div>
     }
     return (
-        <main className={classes.layout}>
-            <Paper className={classes.paper}>
-                <Stepper activeStep={steps} style={{paddingTop: 30, paddingBottom: 50}} alternativeLabel>
-                    {
-                        labels.map(label => (<Step key={label}><StepLabel>{label}</StepLabel> </Step>))
-                    }
-                </Stepper>
-                {handleSteps(steps)}
-            </Paper>
-        </main>
+        <Paper className={classes.paper}>
+            <Stepper activeStep={steps} style={{paddingTop: 30, paddingBottom: 50}} alternativeLabel>
+                {
+                    labels.map(label => (<Step key={label}><StepLabel>{label}</StepLabel> </Step>))
+                }
+            </Stepper>
+            {handleSteps(steps)}
+        </Paper>
     )
 };
 
