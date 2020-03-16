@@ -11,15 +11,9 @@ import {LineSettings} from '../applets/line';
 import {RectangleSettings} from '../applets/rectangle';
 
 const styles = theme => ({
-    paper: {
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3),
-        padding: theme.spacing(2),
-        [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-            marginTop: theme.spacing(8),
-            marginBottom: theme.spacing(8),
-            padding: theme.spacing(3)
-        }
+    stepper: {
+        paddingTop: 30,
+        paddingBottom: 50
     }
 });
 
@@ -40,14 +34,14 @@ const SettingsComponent = ({classes, onSubmit}) => {
         onSubmit();
     }
     return (
-        <Paper className={classes.paper}>
-            <Stepper activeStep={steps} style={{paddingTop: 30, paddingBottom: 50}} alternativeLabel>
+        <>
+            <Stepper activeStep={steps} className={classes.stepper} alternativeLabel>
                 {
                     labels.map(label => (<Step key={label}><StepLabel>{label}</StepLabel> </Step>))
                 }
             </Stepper>
             {handleSteps(steps)}
-        </Paper>
+        </>
     )
 };
 

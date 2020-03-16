@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import {Header} from '../components/Header.component';
 import {Paint} from '../screens/Paint.component';
@@ -17,6 +18,16 @@ const styles = theme => ({
             marginLeft: 'auto',
             marginRight: 'auto'
         }
+    },
+    paper: {
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        padding: theme.spacing(2),
+        [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+            marginTop: theme.spacing(8),
+            marginBottom: theme.spacing(8),
+            padding: theme.spacing(3)
+        }
     }
 });
 
@@ -27,7 +38,9 @@ function AppComponent({classes}) {
             <CssBaseline/>
             <Header/>
             <main className={classes.layout}>
-                { isAllSettingsAvailable ? <Paint/> : <Settings onSubmit={() => setSettings(true)}/> }
+                <Paper className={classes.paper}>
+                    {isAllSettingsAvailable ? <Paint/> : <Settings onSubmit={() => setSettings(true)}/>}
+                </Paper>
             </main>
         </div>
     );
