@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
@@ -13,8 +13,7 @@ const styles = theme => ({
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-            minWidth: 600,
-            width: 'auto',
+            width: 1000,
             marginLeft: 'auto',
             marginRight: 'auto'
         }
@@ -22,12 +21,13 @@ const styles = theme => ({
 });
 
 function AppComponent({classes}) {
+    const [isAllSettingsAvailable, setSettings] = useState(false);
     return (
         <div className="App">
             <CssBaseline/>
             <Header/>
             <main className={classes.layout}>
-                <Paint/>
+                { isAllSettingsAvailable ? <Paint/> : <Settings onSubmit={() => setSettings(true)}/> }
             </main>
         </div>
     );

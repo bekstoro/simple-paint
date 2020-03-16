@@ -25,7 +25,7 @@ const styles = theme => ({
 
 const labels = ['Canvas', 'Line', 'Rectangle', 'Bucket Fill'];
 
-const SettingsComponent = ({classes}) => {
+const SettingsComponent = ({classes, onSubmit}) => {
     const [steps, setSteps] = useState(0);
     const handleNext = () => setSteps(steps + 1);
 
@@ -37,7 +37,7 @@ const SettingsComponent = ({classes}) => {
     }[step]);
 
     if (steps === labels.length) {
-        return <div>Redirect to paint</div>
+        onSubmit();
     }
     return (
         <Paper className={classes.paper}>
@@ -52,7 +52,8 @@ const SettingsComponent = ({classes}) => {
 };
 
 SettingsComponent.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func.isRequired
 };
 
 export const Settings = withStyles(styles)(SettingsComponent);

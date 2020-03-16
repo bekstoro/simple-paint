@@ -1,7 +1,7 @@
-export const minCanvasWidth = 15;
-export const minCanvasHeight = 15;
+export const minCanvasWidth = 20;
+export const minCanvasHeight = 20;
 export const maxCanvasWidth = 100;
-export const maxCanvasHeight = 50;
+export const maxCanvasHeight = 100;
 
 export const githubUrl = 'http://github.com/bekstoro/simple-paint';
 

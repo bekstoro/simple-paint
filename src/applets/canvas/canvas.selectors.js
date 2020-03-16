@@ -1,5 +1,4 @@
-// export const selectCanvas = state => ({height: state.canvas.height, width: state.canvas.width});
-export const selectCanvas = state => ({height: 40, width: 50});
+export const selectCanvas = state => ({height: state.canvas.height, width: state.canvas.width});
 
 export const selectCanvasHeight = state => state.canvas.height;
 

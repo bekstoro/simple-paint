@@ -1,6 +1,4 @@
-// export const selectLine = state => ({x1: state.line.x1, y1: state.line.y1, x2: state.line.x2, y2: state.line.y2});
-
-export const selectLine = state => ({x1: 20, y1: 20, x2: 45, y2: 20});
+export const selectLine = state => ({x1: state.line.x1, y1: state.line.y1, x2: state.line.x2, y2: state.line.y2});
 
 export const selectLineX1 = state => state.line.x1;
 
