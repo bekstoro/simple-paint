@@ -3,9 +3,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import {Header} from '../components/Header.component';
-import {Paint} from '../screens/Paint.component';
-import {Settings} from '../screens/Settings.component';
+import {Header} from './components/header.component';
+import {Board} from './screens/board.screen';
+import {Settings} from './screens/settings.screen';
 import './App.css';
 
 const styles = theme => ({
@@ -39,7 +39,7 @@ function AppComponent({classes}) {
             <Header/>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                    {isAllSettingsAvailable ? <Paint/> : <Settings onSubmit={() => setSettings(true)}/>}
+                    {isAllSettingsAvailable ? <Board/> : <Settings onSubmit={() => setSettings(true)}/>}
                 </Paper>
             </main>
         </div>

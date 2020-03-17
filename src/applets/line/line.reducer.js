@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
-import {SET_LINE_SETTINGS_FAILURE, SET_LINE_SETTINGS_REQUEST, SET_LINE_SETTINGS_SUCCESS} from './line.actions';
+
+import {SET_LINE_FAILURE, SET_LINE_REQUEST, SET_LINE_SUCCESS} from './line.actions';
 
 export const initialState = {
     isFailed: false,
@@ -11,19 +12,19 @@ export const initialState = {
 };
 
 export const lineReducer = handleActions({
-    [SET_LINE_SETTINGS_FAILURE]:
+    [SET_LINE_FAILURE]:
         (state) => ({
             ...state,
             isFailed: true,
             isLoading: false
         }),
-    [SET_LINE_SETTINGS_REQUEST]:
+    [SET_LINE_REQUEST]:
         (state) => ({
             ...state,
             isFailed: false,
             isLoading: true
         }),
-    [SET_LINE_SETTINGS_SUCCESS]:
+    [SET_LINE_SUCCESS]:
         (state, {payload}) => ({
             x1: payload.x1,
             y1: payload.y1,

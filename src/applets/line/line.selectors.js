@@ -8,6 +8,6 @@ export const selectLineX2 = state => state.line.x2;
 
 export const selectLineY2 = state => state.line.y2;
 
-export const selectLineSettingsIsFailed = state => state.line.isFailed;
+export const selectLineIsFailed = state => state.line.isFailed;
 
-export const selectLineSettingsIsLoading = state => state.line.isLoading;
+export const selectLineIsLoading = state => state.line.isLoading;

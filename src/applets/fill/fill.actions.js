@@ -1,8 +1,8 @@
-export const SET_FILL_SETTINGS_REQUEST = 'SET_FILL_SETTINGS_REQUEST';
-export const setFillSettingsRequest = payload => ({type: SET_FILL_SETTINGS_REQUEST, payload});
+export const SET_FILL_REQUEST = 'SET_FILL_REQUEST';
+export const setFillRequest = payload => ({type: SET_FILL_REQUEST, payload});
 
-export const SET_FILL_SETTINGS_SUCCESS = 'SET_FILL_SETTINGS_SUCCESS';
-export const setFillSettingsSuccess = payload => ({type: SET_FILL_SETTINGS_SUCCESS, payload});
+export const SET_FILL_SUCCESS = 'SET_FILL_SUCCESS';
+export const setFillSuccess = payload => ({type: SET_FILL_SUCCESS, payload});
 
-export const SET_FILL_SETTINGS_FAILURE = 'SET_FILL_SETTINGS_FAILURE';
-export const setFillSettingsFailure = () => ({type: SET_FILL_SETTINGS_FAILURE});
+export const SET_FILL_FAILURE = 'SET_FILL_FAILURE';
+export const setFillFailure = () => ({type: SET_FILL_FAILURE});

@@ -6,6 +6,6 @@ export const selectFillWidth = state => state.fill.width;
 
 export const selectFillColor = state => state.fill.color;
 
-export const selectFillSettingsIsFailed = state => state.fill.isFailed;
+export const selectFillIsFailed = state => state.fill.isFailed;
 
-export const selectFillSettingsIsLoading = state => state.fill.isLoading;
+export const selectFillIsLoading = state => state.fill.isLoading;

@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
-import {SET_FILL_SETTINGS_FAILURE, SET_FILL_SETTINGS_REQUEST, SET_FILL_SETTINGS_SUCCESS} from './fill.actions';
+
+import {SET_FILL_FAILURE, SET_FILL_REQUEST, SET_FILL_SUCCESS} from './fill.actions';
 
 export const initialState = {
     isFailed: false,
@@ -10,19 +11,19 @@ export const initialState = {
 };
 
 export const fillReducer = handleActions({
-    [SET_FILL_SETTINGS_FAILURE]:
+    [SET_FILL_FAILURE]:
         (state) => ({
             ...state,
             isFailed: true,
             isLoading: false
         }),
-    [SET_FILL_SETTINGS_REQUEST]:
+    [SET_FILL_REQUEST]:
         (state) => ({
             ...state,
             isFailed: false,
             isLoading: true
         }),
-    [SET_FILL_SETTINGS_SUCCESS]:
+    [SET_FILL_SUCCESS]:
         (state, {payload}) => ({
             width: payload.width,
             height: payload.height,

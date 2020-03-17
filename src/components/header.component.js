@@ -7,7 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import GithubIcon from '@material-ui/icons/GitHub'
 import PropTypes from 'prop-types';
-import {githubUrl} from '../app/App.constants';
+
+import {githubUrl, projectTitle} from '../App.constants';
 
 const styles = () => ({
     appBar: {
@@ -21,9 +22,7 @@ const styles = () => ({
 const HeaderComponent = ({classes}) =>
     <AppBar className={classes.appBar}>
         <Toolbar>
-            <Typography variant="h6" noWrap>
-                Simple Paint
-            </Typography>
+            <Typography variant="h6" noWrap>{projectTitle}</Typography>
             <IconButton color="inherit" aria-label="Github" className={classes.iconMargin}>
                 <Link
                     href={githubUrl}
