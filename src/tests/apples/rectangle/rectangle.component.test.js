@@ -1,28 +1,41 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
 import {shallow} from 'enzyme';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import {Rectangle} from '../../../applets/rectangle';
+import {RectangleComponent} from '../../../applets/rectangle/rectangle.component';
+import {Submit} from '../../../components/submit.component';
+import {Toast} from '../../../components/toast.component';
+import {validationMessages} from '../../../App.constants';
 
-const configureMockStore = configureStore();
-
-const initialState = {
-    rectangle: {
-        errorMessage: '',
-        isLoading: false,
-        isSuccess: false,
-        x1: 0,
-        x2: 0,
-        y1: 0,
-        y2: 0
-    }
+const props = {
+    handleNext: jest.fn(),
+    setRectangleRequest: jest.fn()
 };
-
-const store = configureMockStore(initialState);
 
 describe('Rectangle component', () => {
     it('should render correctly', () => {
-        const component = shallow(<Rectangle store={store} handleNext={() => {}}/>);
+        const component = shallow(<RectangleComponent {...props}/>);
         expect(component).toMatchSnapshot();
+    });
+
+    it('should render LinearProgress', () => {
+        const component = shallow(<RectangleComponent {...props} isLoading={true}/>);
+        expect(component.find(LinearProgress)).toHaveLength(1);
+    });
+
+    it('should call handleNext', () => {
+        shallow(<RectangleComponent {...props} isSuccess={true}/>);
+        expect(props.handleNext).toHaveBeenCalled();
+    });
+
+    it('should render Toast', () => {
+        const component = shallow(<RectangleComponent {...props} errorMessage={validationMessages.somethingWentWrong}/>);
+        expect(component.find(Toast)).toHaveLength(1);
+    });
+
+    it('should call setRectangleRequest', () => {
+        const component = shallow(<RectangleComponent {...props}/>);
+        component.find(Submit).at(0).simulate('click');
+        expect(props.setRectangleRequest).toHaveBeenCalled();
     });
 });

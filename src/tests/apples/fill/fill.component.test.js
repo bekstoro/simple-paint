@@ -1,27 +1,41 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
 import {shallow} from 'enzyme';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import {Fill} from '../../../applets/fill';
+import {FillComponent} from '../../../applets/fill/fill.component';
+import {Submit} from '../../../components/submit.component';
+import {Toast} from '../../../components/toast.component';
+import {validationMessages} from '../../../App.constants';
 
-const configureMockStore = configureStore();
-
-const initialState = {
-    fill: {
-        color: '',
-        errorMessage: '',
-        height: 0,
-        isLoading: false,
-        isSuccess: false,
-        width: 0
-    }
+const props = {
+    handleNext: jest.fn(),
+    setFillRequest: jest.fn()
 };
-
-const store = configureMockStore(initialState);
 
 describe('Fill component', () => {
     it('should render correctly', () => {
-        const component = shallow(<Fill store={store} handleNext={() => {}}/>);
+        const component = shallow(<FillComponent {...props}/>);
         expect(component).toMatchSnapshot();
+    });
+
+    it('should render LinearProgress', () => {
+        const component = shallow(<FillComponent {...props} isLoading={true}/>);
+        expect(component.find(LinearProgress)).toHaveLength(1);
+    });
+
+    it('should call handleNext', () => {
+        shallow(<FillComponent {...props} isSuccess={true}/>);
+        expect(props.handleNext).toHaveBeenCalled();
+    });
+
+    it('should render Toast', () => {
+        const component = shallow(<FillComponent {...props} errorMessage={validationMessages.somethingWentWrong}/>);
+        expect(component.find(Toast)).toHaveLength(1);
+    });
+
+    it('should call setFillRequest', () => {
+        const component = shallow(<FillComponent {...props}/>);
+        component.find(Submit).at(0).simulate('click');
+        expect(props.setFillRequest).toHaveBeenCalled();
     });
 });

@@ -25,12 +25,12 @@ const styles = () => ({
 });
 
 function BoardComponent({
-                         canvas,
-                         fill,
-                         line,
-                         rectangle,
-                         classes
-                     }) {
+                            canvas,
+                            fill,
+                            line,
+                            rectangle,
+                            classes
+                        }) {
     const lineCoordinates = getLineCoordinates(line);
     const rectangleCoordinates = getRectangleCoordinates(rectangle);
     const [board, setBoard] = useState(getBoard(canvas.height, canvas.width, lineCoordinates, rectangleCoordinates));
@@ -69,6 +69,7 @@ BoardComponent.propTypes = {
     line: PropTypes.object.isRequired,
     rectangle: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
     canvas: selectCanvas(state),
     fill: selectFill(state),
