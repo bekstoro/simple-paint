@@ -1,64 +1,55 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-import {validationMessages} from '../../App.constants';
+import {Submit} from '../../components/submit.component';
+import {Toast} from '../../components/toast.component';
+import {
+    defaultRectangleX1,
+    defaultRectangleX2,
+    defaultRectangleY1,
+    defaultRectangleY2,
+    validationMessages
+} from '../../App.constants';
 
 export function RectangleComponent({
-                                       canvasHeight,
-                                       canvasWidth,
+                                       errorMessage,
                                        handleNext,
+                                       isLoading,
+                                       isSuccess,
                                        setRectangleRequest
                                    }) {
-    const [rx1, setRx1] = useState(0);
-    const [rx2, setRx2] = useState(0);
-    const [ry1, setRy1] = useState(0);
-    const [ry2, setRy2] = useState(0);
-    const [isRx1Valid, setIsRx1Valid] = useState(true);
-    const [isRy1Valid, setIsRy1Valid] = useState(true);
-    const [isRx2Valid, setIsRx2Valid] = useState(true);
-    const [isRy2Valid, setIsRy2Valid] = useState(true);
+    const [x1, setX1] = useState(defaultRectangleX1);
+    const [x2, setX2] = useState(defaultRectangleX2);
+    const [y1, setY1] = useState(defaultRectangleY1);
+    const [y2, setY2] = useState(defaultRectangleY2);
 
-    const onValidate = () => {
-        const isRx1Valid = rx1 && rx1 > 0 && rx1 <= canvasWidth;
-        const isRy1Valid = ry1 && ry1 > 0 && ry1 <= canvasHeight;
-        const isRx2Valid = rx2 && rx2 > 0 && rx2 <= canvasWidth;
-        const isRy2Valid = ry2 && ry2 > 0 && ry2 <= canvasHeight;
-        setIsRx1Valid(isRx1Valid);
-        setIsRy1Valid(isRy1Valid);
-        setIsRx2Valid(isRx2Valid);
-        setIsRy2Valid(isRy2Valid);
+    if (isSuccess) handleNext();
 
-        return isRx1Valid && isRx2Valid && isRy1Valid && isRy2Valid;
-    };
-
-    const onSubmit = () => {
-        const isValid = onValidate();
-        if (isValid) {
-            setRectangleRequest({x1: rx1, y1: ry1, x2: rx2, y2: ry2});
-            handleNext();
-        }
-    };
+    if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                errorMessage && <Toast message={errorMessage}/>
+            }
             <Grid container>
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
                         variant="outlined"
                         label="LeftTopPoint xCoordinate"
-                        name="rx1"
+                        name="x1"
                         placeholder="Set xCoordinate for leftTopPoint"
-                        defaultValue={rx1}
-                        onChange={val => setRx1(+val.target.value)}
+                        defaultValue={x1}
+                        onChange={val => setX1(+val.target.value)}
                         margin="normal"
                         type="number"
                         required
-                        error={!isRx1Valid}
-                        helperText={!isRx1Valid && validationMessages.coordinatesFieldRule}
+                        error={!x1}
+                        helperText={!x1 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -66,15 +57,15 @@ export function RectangleComponent({
                         fullWidth
                         variant="outlined"
                         label="LeftTopPoint yCoordinate"
-                        name="ry1"
+                        name="y1"
                         placeholder="Set xCoordinate for leftTopPoint"
-                        defaultValue={ry1}
-                        onChange={val => setRy1(+val.target.value)}
+                        defaultValue={y1}
+                        onChange={val => setY1(+val.target.value)}
                         margin="normal"
                         type="number"
                         required
-                        error={!isRy1Valid}
-                        helperText={!isRy1Valid && validationMessages.coordinatesFieldRule}
+                        error={!y1}
+                        helperText={!y1 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -82,15 +73,15 @@ export function RectangleComponent({
                         fullWidth
                         variant="outlined"
                         label="RightBottomPoint xCoordinate"
-                        name="rx2"
+                        name="x2"
                         placeholder="Set xCoordinate for rightBottomPoint"
-                        defaultValue={rx2}
-                        onChange={val => setRx2(+val.target.value)}
+                        defaultValue={x2}
+                        onChange={val => setX2(+val.target.value)}
                         margin="normal"
                         type="number"
                         required
-                        error={!isRx2Valid}
-                        helperText={!isRx2Valid && validationMessages.coordinatesFieldRule}
+                        error={!x2}
+                        helperText={!x2 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -98,30 +89,27 @@ export function RectangleComponent({
                         fullWidth
                         variant="outlined"
                         label="RightBottomPoint yCoordinate"
-                        name="ry2"
+                        name="y2"
                         placeholder="Set xCoordinate for rightBottomPoint"
-                        defaultValue={ry2}
-                        onChange={val => setRy2(+val.target.value)}
+                        defaultValue={y2}
+                        onChange={val => setY2(+val.target.value)}
                         margin="normal"
                         type="number"
                         required
-                        error={!isRy2Valid}
-                        helperText={!isRy2Valid && validationMessages.coordinatesFieldRule}
+                        error={!y2}
+                        helperText={!y2 && validationMessages.requiredField}
                     />
                 </Grid>
             </Grid>
-            <div style={{display: 'flex', marginTop: 20, justifyContent: 'flex-end'}}>
-                <Button variant="contained" color="primary" onClick={onSubmit}>
-                    Next
-                </Button>
-            </div>
+            <Submit onClick={() => setRectangleRequest({x1, y1, x2, y2})} disabled={!x1 || !x2 || !y1 || !y2}/>
         </>
     )
 }
 
 RectangleComponent.propTypes = {
-    canvasHeight: PropTypes.number.isRequired,
-    canvasWidth: PropTypes.number.isRequired,
+    errorMessage: PropTypes.string,
     handleNext: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    isSuccess: PropTypes.bool,
     setRectangleRequest: PropTypes.func.isRequired
 };

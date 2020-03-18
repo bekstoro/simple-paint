@@ -8,11 +8,12 @@ const configureMockStore = configureStore();
 
 const initialState = {
     fill: {
-        width: 0,
-        height: 0,
         color: '',
-        isFailed: false,
-        isLoading: false
+        errorMessage: '',
+        height: 0,
+        isLoading: false,
+        isSuccess: false,
+        width: 0
     }
 };
 

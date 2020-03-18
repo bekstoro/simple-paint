@@ -1,46 +1,33 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-import {validationMessages} from '../../App.constants';
+import {Submit} from '../../components/submit.component';
+import {Toast} from '../../components/toast.component';
+import {defaultFillColor, minFillHeight, minFillWidth, validationMessages} from '../../App.constants';
 
 export function FillComponent({
+                                  errorMessage,
                                   handleNext,
+                                  isLoading,
+                                  isSuccess,
                                   setFillRequest
                               }) {
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
-    const [color, setColor] = useState('#000000');
-    const [isWidthValid, setIsWidthValid] = useState(true);
-    const [isHeightValid, setIsHeightValid] = useState(true);
-    const [isColorValid, setIsColorValid] = useState(true);
+    const [width, setWidth] = useState(minFillWidth);
+    const [height, setHeight] = useState(minFillHeight);
+    const [color, setColor] = useState(defaultFillColor);
 
-    const onValidate = () => {
-        const isWidthValid = width && width > 0;
-        setIsWidthValid(isWidthValid);
+    if (isSuccess) handleNext();
 
-        const isHeightValid = height && height > 0;
-        setIsHeightValid(isHeightValid);
-
-        // TODO add color regex check
-        const isColorValid = color;
-        setIsColorValid(!!color);
-
-        return isWidthValid && isHeightValid && isColorValid;
-    };
-
-    const onSubmit = () => {
-        const isValid = onValidate();
-        if (isValid) {
-            setFillRequest({width, height, color});
-            handleNext();
-        }
-    };
+    if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                errorMessage && <Toast message={errorMessage}/>
+            }
             <Grid container>
                 <Grid item xs={12}>
                     <TextField
@@ -54,8 +41,8 @@ export function FillComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isWidthValid}
-                        helperText={!isWidthValid && validationMessages.canvasWidth}
+                        error={!width}
+                        helperText={!width && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -70,8 +57,8 @@ export function FillComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isHeightValid}
-                        helperText={!isHeightValid && validationMessages.canvasHeight}
+                        error={!height}
+                        helperText={!height && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -85,21 +72,20 @@ export function FillComponent({
                         onChange={val => setColor(val.target.value)}
                         margin="normal"
                         required
-                        error={!isColorValid}
-                        helperText={!isColorValid && validationMessages.requiredField}
+                        error={!color}
+                        helperText={!color && validationMessages.requiredField}
                     />
                 </Grid>
             </Grid>
-            <div style={{display: 'flex', marginTop: 20, justifyContent: 'flex-end'}}>
-                <Button variant="contained" color="primary" onClick={onSubmit}>
-                    Next
-                </Button>
-            </div>
+            <Submit onClick={() => setFillRequest({width, height, color})} disabled={!width || !height || !color}/>
         </>
     )
 }
 
 FillComponent.propTypes = {
+    errorMessage: PropTypes.string,
     handleNext: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    isSuccess: PropTypes.bool,
     setFillRequest: PropTypes.func.isRequired
 };

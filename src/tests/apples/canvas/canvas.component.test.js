@@ -8,10 +8,11 @@ const configureMockStore = configureStore();
 
 const initialState = {
     canvas: {
-        width: 0,
+        errorMessage: '',
         height: 0,
-        isFailed: false,
-        isLoading: false
+        isLoading: false,
+        isSuccess: false,
+        width: 0
     }
 };
 

@@ -1,46 +1,32 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-import {
-    maxCanvasHeight,
-    maxCanvasWidth,
-    minCanvasHeight,
-    minCanvasWidth,
-    validationMessages
-} from '../../App.constants';
+import {Submit} from '../../components/submit.component';
+import {Toast} from '../../components/toast.component';
+import {minCanvasHeight, minCanvasWidth, validationMessages} from '../../App.constants';
 
 export function CanvasComponent({
+                                    errorMessage,
                                     handleNext,
+                                    isLoading,
+                                    isSuccess,
                                     setCanvasRequest
                                 }) {
     const [width, setWidth] = useState(minCanvasWidth);
     const [height, setHeight] = useState(minCanvasHeight);
-    const [isWidthValid, setIsWidthValid] = useState(true);
-    const [isHeightValid, setIsHeightValid] = useState(true);
 
-    const onValidate = () => {
-        const isWidthValid = width && width >= minCanvasWidth && width <= maxCanvasWidth;
-        setIsWidthValid(isWidthValid);
+    if (isSuccess) handleNext();
 
-        const isHeightValid = height && height >= minCanvasHeight && height <= maxCanvasHeight;
-        setIsHeightValid(isHeightValid);
-
-        return isWidthValid && isHeightValid;
-    };
-
-    const onSubmit = () => {
-        const isValid = onValidate();
-        if (isValid) {
-            setCanvasRequest({width, height});
-            handleNext();
-        }
-    };
+    if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                errorMessage && <Toast message={errorMessage}/>
+            }
             <Grid container>
                 <Grid item xs={12}>
                     <TextField
@@ -54,8 +40,8 @@ export function CanvasComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isWidthValid}
-                        helperText={!isWidthValid && validationMessages.canvasWidth}
+                        error={!width}
+                        helperText={!width && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -70,21 +56,20 @@ export function CanvasComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isHeightValid}
-                        helperText={!isHeightValid && validationMessages.canvasHeight}
+                        error={!height}
+                        helperText={!height && validationMessages.requiredField}
                     />
                 </Grid>
             </Grid>
-            <div style={{display: 'flex', marginTop: 20, justifyContent: 'flex-end'}}>
-                <Button variant="contained" color="primary" onClick={onSubmit}>
-                    Next
-                </Button>
-            </div>
+            <Submit onClick={() => setCanvasRequest({width, height})} disabled={!width || !height}/>
         </>
     )
 }
 
 CanvasComponent.propTypes = {
+    errorMessage: PropTypes.string,
     handleNext: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    isSuccess: PropTypes.bool,
     setCanvasRequest: PropTypes.func.isRequired
 };

@@ -3,11 +3,12 @@ import {bindActionCreators} from 'redux'
 
 import {setCanvasRequest} from './canvas.actions';
 import {CanvasComponent} from './canvas.component';
-import {selectCanvasIsFailed, selectCanvasIsLoading} from './canvas.selectors';
+import {selectCanvasErrorMessage, selectCanvasIsLoading, selectCanvasIsSuccess} from './canvas.selectors';
 
 const mapStateToProps = state => ({
-    isFailed: selectCanvasIsFailed(state),
-    isLoading: selectCanvasIsLoading(state)
+    errorMessage: selectCanvasErrorMessage(state),
+    isLoading: selectCanvasIsLoading(state),
+    isSuccess: selectCanvasIsSuccess(state)
 });
 
 const mapDispatchToProps = dispatch => ({

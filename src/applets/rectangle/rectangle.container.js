@@ -1,16 +1,14 @@
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-import {selectCanvasHeight, selectCanvasWidth} from '../canvas';
 import {setRectangleRequest} from './rectangle.actions';
 import {RectangleComponent} from './rectangle.component';
-import {selectRectangleIsFailed, selectRectangleIsLoading} from './rectangle.selectors';
+import {selectRectangleErrorMessage, selectRectangleIsLoading, selectRectangleIsSuccess} from './rectangle.selectors';
 
 const mapStateToProps = state => ({
-    canvasHeight: selectCanvasHeight(state),
-    canvasWidth: selectCanvasWidth(state),
-    isFailed: selectRectangleIsFailed(state),
-    isLoading: selectRectangleIsLoading(state)
+    errorMessage: selectRectangleErrorMessage(state),
+    isLoading: selectRectangleIsLoading(state),
+    isSuccess: selectRectangleIsSuccess(state)
 });
 
 const mapDispatchToProps = dispatch => ({

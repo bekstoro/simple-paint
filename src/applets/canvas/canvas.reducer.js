@@ -3,30 +3,34 @@ import {handleActions} from 'redux-actions';
 import {SET_CANVAS_FAILURE, SET_CANVAS_REQUEST, SET_CANVAS_SUCCESS} from './canvas.actions';
 
 export const initialState = {
-    isFailed: false,
-    isLoading: false,
-    width: 0,
+    errorMessage: '',
     height: 0,
+    isLoading: false,
+    isSuccess: false,
+    width: 0
 };
 
 export const canvasReducer = handleActions({
     [SET_CANVAS_FAILURE]:
-        (state) => ({
+        (state, {payload: errorMessage}) => ({
             ...state,
-            isFailed: true,
-            isLoading: false
+            errorMessage,
+            isLoading: false,
+            isSuccess: false
         }),
     [SET_CANVAS_REQUEST]:
         (state) => ({
             ...state,
-            isFailed: false,
-            isLoading: true
+            errorMessage: '',
+            isLoading: true,
+            isSuccess: false
         }),
     [SET_CANVAS_SUCCESS]:
         (state, {payload}) => ({
-            width: payload.width,
+            errorMessage: '',
             height: payload.height,
-            isFailed: false,
-            isLoading: false
+            isLoading: false,
+            isSuccess: true,
+            width: payload.width
         })
 }, initialState);

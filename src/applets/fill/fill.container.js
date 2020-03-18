@@ -3,11 +3,12 @@ import {bindActionCreators} from 'redux'
 
 import {setFillRequest} from './fill.actions';
 import {FillComponent} from './fill.component';
-import {selectFillIsFailed, selectFillIsLoading} from './fill.selectors';
+import {selectFillErrorMessage, selectFillIsLoading, selectFillIsSuccess} from './fill.selectors';
 
 const mapStateToProps = state => ({
-    isFailed: selectFillIsFailed(state),
-    isLoading: selectFillIsLoading(state)
+    errorMessage: selectFillErrorMessage(state),
+    isLoading: selectFillIsLoading(state),
+    isSuccess: selectFillIsSuccess(state)
 });
 
 const mapDispatchToProps = dispatch => ({

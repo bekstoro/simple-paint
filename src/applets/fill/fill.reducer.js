@@ -3,32 +3,36 @@ import {handleActions} from 'redux-actions';
 import {SET_FILL_FAILURE, SET_FILL_REQUEST, SET_FILL_SUCCESS} from './fill.actions';
 
 export const initialState = {
-    isFailed: false,
-    isLoading: false,
-    width: 0,
+    color: '',
+    errorMessage: '',
     height: 0,
-    color: ''
+    isLoading: false,
+    isSuccess: false,
+    width: 0
 };
 
 export const fillReducer = handleActions({
     [SET_FILL_FAILURE]:
-        (state) => ({
+        (state, {payload: errorMessage}) => ({
             ...state,
-            isFailed: true,
-            isLoading: false
+            errorMessage,
+            isLoading: false,
+            isSuccess: false
         }),
     [SET_FILL_REQUEST]:
         (state) => ({
             ...state,
-            isFailed: false,
-            isLoading: true
+            errorMessage: '',
+            isLoading: true,
+            isSuccess: false
         }),
     [SET_FILL_SUCCESS]:
         (state, {payload}) => ({
-            width: payload.width,
-            height: payload.height,
             color: payload.color,
-            isFailed: false,
-            isLoading: false
+            errorMessage: '',
+            height: payload.height,
+            isLoading: false,
+            isSuccess: true,
+            width: payload.width
         })
 }, initialState);

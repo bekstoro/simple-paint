@@ -1,49 +1,34 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-import {validationMessages} from '../../App.constants';
+import {Submit} from '../../components/submit.component';
+import {Toast} from '../../components/toast.component';
+import {defaultLineX1, defaultLineX2, defaultLineY1, defaultLineY2, validationMessages} from '../../App.constants';
 
 export function LineComponent({
-                                  canvasHeight,
-                                  canvasWidth,
+                                  errorMessage,
                                   handleNext,
+                                  isLoading,
+                                  isSuccess,
                                   setLineRequest
                               }) {
-    const [x1, setX1] = useState(0);
-    const [x2, setX2] = useState(0);
-    const [y1, setY1] = useState(0);
-    const [y2, setY2] = useState(0);
-    const [isX1Valid, setIsX1Valid] = useState(true);
-    const [isY1Valid, setIsY1Valid] = useState(true);
-    const [isX2Valid, setIsX2Valid] = useState(true);
-    const [isY2Valid, setIsY2Valid] = useState(true);
+    const [x1, setX1] = useState(defaultLineX1);
+    const [x2, setX2] = useState(defaultLineX2);
+    const [y1, setY1] = useState(defaultLineY1);
+    const [y2, setY2] = useState(defaultLineY2);
 
-    const onValidate = () => {
-        const isX1Valid = x1 && x1 > 0 && x1 <= canvasWidth;
-        const isY1Valid = y1 && y1 > 0 && y1 <= canvasHeight;
-        const isX2Valid = x2 && x2 > 0 && x2 <= canvasWidth;
-        const isY2Valid = y2 && y2 > 0 && y2 <= canvasHeight;
-        setIsX1Valid(isX1Valid);
-        setIsY1Valid(isY1Valid);
-        setIsX2Valid(isX2Valid);
-        setIsY2Valid(isY2Valid);
+    if (isSuccess) handleNext();
 
-        return isX1Valid && isX2Valid && isY1Valid && isY2Valid;
-    };
-
-    const onSubmit = () => {
-        const isValid = onValidate();
-        if (isValid) {
-            setLineRequest({x1, y1, x2, y2});
-            handleNext();
-        }
-    };
+    if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                errorMessage && <Toast message={errorMessage}/>
+            }
             <Grid container>
                 <Grid item xs={12}>
                     <TextField
@@ -57,8 +42,8 @@ export function LineComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isX1Valid}
-                        helperText={!isX1Valid && validationMessages.coordinatesFieldRule}
+                        error={!x1}
+                        helperText={!x1 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -73,8 +58,8 @@ export function LineComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isY1Valid}
-                        helperText={!isY1Valid && validationMessages.coordinatesFieldRule}
+                        error={!y1}
+                        helperText={!y1 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -89,8 +74,8 @@ export function LineComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isX2Valid}
-                        helperText={!isX2Valid && validationMessages.coordinatesFieldRule}
+                        error={!x2}
+                        helperText={!x2 && validationMessages.requiredField}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -105,23 +90,20 @@ export function LineComponent({
                         margin="normal"
                         type="number"
                         required
-                        error={!isY2Valid}
-                        helperText={!isY2Valid && validationMessages.coordinatesFieldRule}
+                        error={!y2}
+                        helperText={!y2 && validationMessages.requiredField}
                     />
                 </Grid>
             </Grid>
-            <div style={{display: 'flex', marginTop: 20, justifyContent: 'flex-end'}}>
-                <Button variant="contained" color="primary" onClick={onSubmit}>
-                    Next
-                </Button>
-            </div>
+            <Submit onClick={() => setLineRequest({x1, y1, x2, y2})} disabled={!x1 || !x2 || !y1 || !y2}/>
         </>
     )
 }
 
 LineComponent.propTypes = {
-    canvasHeight: PropTypes.number.isRequired,
-    canvasWidth: PropTypes.number.isRequired,
+    errorMessage: PropTypes.string,
     handleNext: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    isSuccess: PropTypes.bool,
     setLineRequest: PropTypes.func.isRequired
 };
