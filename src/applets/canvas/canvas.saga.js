@@ -14,7 +14,7 @@ const validateCanvasSaga = ({width, height}) => {
     if (!height || height < minCanvasHeight || height > maxCanvasHeight) return validationMessages.canvasHeight;
 };
 
-function* setCanvasSaga() {
+export function* setCanvasSaga() {
     while (true) {
         const {payload} = yield take(SET_CANVAS_REQUEST);
         const errorMessage = validateCanvasSaga(payload);

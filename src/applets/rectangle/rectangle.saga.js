@@ -13,7 +13,7 @@ function* validateRectangleSaga({x1, y1, x2, y2}) {
     if ((x1 === x2 && y1 !== y2) || (x1 !== x2 && y1 === y2)) return validationMessages.shouldNotBeEqualByXYCoordinates;
 }
 
-function* setRectangleSaga() {
+export function* setRectangleSaga() {
     while (true) {
         const {payload} = yield take(SET_RECTANGLE_REQUEST);
         const errorMessage = yield call(validateRectangleSaga, payload);

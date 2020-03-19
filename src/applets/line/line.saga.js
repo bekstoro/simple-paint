@@ -13,7 +13,7 @@ function* validateLineSaga({x1, y1, x2, y2}) {
     if (x1 !== x2 && y1 !== y2) return validationMessages.shouldBeEqualByXYCoordinates;
 }
 
-function* setLineSaga() {
+export function* setLineSaga() {
     while (true) {
         const {payload} = yield take(SET_LINE_REQUEST);
         const errorMessage = yield call(validateLineSaga, payload);

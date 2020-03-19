@@ -12,7 +12,7 @@ function* validateFillSaga({width, height, color}) {
     if (!color.match( /#[a-f0-9]{6}/gi )) return validationMessages.invalidColor;
 }
 
-function* setFillSaga() {
+export function* setFillSaga() {
     while (true) {
         const {payload} = yield take(SET_FILL_REQUEST);
         const errorMessage = yield call(validateFillSaga, payload);
