@@ -8,24 +8,43 @@ const styles = () => ({
         display: 'flex',
         marginTop: 20,
         justifyContent: 'flex-end'
+    },
+    addBtn: {
+        marginRight: '1em'
     }
 });
 
 const SubmitComponent = ({
                              classes,
-                             disabled,
-                             onClick
+                             nextDisabled,
+                             onNext,
+                             onSubmit,
+                             submitDisabled
                          }) =>
     <div className={classes.wrapper}>
-        <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
-            Next
-        </Button>
+        {
+            onSubmit &&
+            <Button className={classes.addBtn}
+                    variant="contained"
+                    color="secondary"
+                    onClick={onSubmit}
+                    disabled={submitDisabled}>Add</Button>
+        }
+        {
+            onNext &&
+            <Button variant="contained"
+                    color="primary"
+                    onClick={onNext}
+                    disabled={submitDisabled || nextDisabled}>Next</Button>
+        }
     </div>;
 
 SubmitComponent.propTypes = {
     classes: PropTypes.object.isRequired,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func.isRequired
+    nextDisabled: PropTypes.bool,
+    onNext: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
+    submitDisabled: PropTypes.bool
 };
 
 export const Submit = withStyles(styles)(SubmitComponent);

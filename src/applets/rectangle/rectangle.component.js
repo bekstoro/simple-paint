@@ -11,6 +11,7 @@ import {
     defaultRectangleX2,
     defaultRectangleY1,
     defaultRectangleY2,
+    messages,
     validationMessages
 } from '../../App.constants';
 
@@ -26,12 +27,21 @@ export function RectangleComponent({
     const [y1, setY1] = useState(defaultRectangleY1);
     const [y2, setY2] = useState(defaultRectangleY2);
 
-    if (isSuccess) handleNext();
+    const onNext = () => {
+        if (isSuccess) handleNext();
+    };
+
+    const onSubmit = () => {
+        setRectangleRequest({x1, y1, x2, y2})
+    };
 
     if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                isSuccess && <Toast message={messages.newRectangleAdded} type="success"/>
+            }
             {
                 errorMessage && <Toast message={errorMessage}/>
             }
@@ -101,7 +111,10 @@ export function RectangleComponent({
                     />
                 </Grid>
             </Grid>
-            <Submit onClick={() => setRectangleRequest({x1, y1, x2, y2})} disabled={!x1 || !x2 || !y1 || !y2}/>
+            <Submit onNext={onNext}
+                    onSubmit={onSubmit}
+                    nextDisabled={!isSuccess}
+                    submitDisabled={!x1 || !x2 || !y1 || !y2}/>
         </>
     )
 }

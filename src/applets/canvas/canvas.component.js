@@ -61,7 +61,7 @@ export function CanvasComponent({
                     />
                 </Grid>
             </Grid>
-            <Submit onClick={() => setCanvasRequest({width, height})} disabled={!width || !height}/>
+            <Submit onNext={() => setCanvasRequest({width, height})} nextDisabled={!width || !height}/>
         </>
     )
 }

@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 
 import {validationMessages} from '../App.constants';
 
-export function Toast({message = validationMessages.somethingWentWrong}) {
+export function Toast({
+                          message = validationMessages.somethingWentWrong,
+                          type = 'error'
+                      }) {
     return (
         <Snackbar open={!!message}>
-            <MuiAlert variant="filled" severity="error">
+            <MuiAlert variant="filled" severity={type}>
                 {message}
             </MuiAlert>
         </Snackbar>

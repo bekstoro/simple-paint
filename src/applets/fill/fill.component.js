@@ -77,7 +77,7 @@ export function FillComponent({
                     />
                 </Grid>
             </Grid>
-            <Submit onClick={() => setFillRequest({width, height, color})} disabled={!width || !height || !color}/>
+            <Submit onNext={() => setFillRequest({width, height, color})} nextDisabled={!width || !height || !color}/>
         </>
     )
 }

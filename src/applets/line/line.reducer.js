@@ -6,10 +6,7 @@ export const initialState = {
     errorMessage: '',
     isLoading: false,
     isSuccess: false,
-    x1: 0,
-    x2: 0,
-    y1: 0,
-    y2: 0
+    entities: []
 };
 
 export const lineReducer = handleActions({
@@ -32,9 +29,14 @@ export const lineReducer = handleActions({
             errorMessage: '',
             isLoading: false,
             isSuccess: true,
-            x1: payload.x1,
-            x2: payload.x2,
-            y1: payload.y1,
-            y2: payload.y2
+            entities: [
+                ...state.entities,
+                {
+                    x1: payload.x1,
+                    x2: payload.x2,
+                    y1: payload.y1,
+                    y2: payload.y2
+                }
+            ]
         })
 }, initialState);

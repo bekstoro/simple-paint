@@ -6,7 +6,14 @@ import PropTypes from 'prop-types';
 
 import {Submit} from '../../components/submit.component';
 import {Toast} from '../../components/toast.component';
-import {defaultLineX1, defaultLineX2, defaultLineY1, defaultLineY2, validationMessages} from '../../App.constants';
+import {
+    defaultLineX1,
+    defaultLineX2,
+    defaultLineY1,
+    defaultLineY2,
+    messages,
+    validationMessages
+} from '../../App.constants';
 
 export function LineComponent({
                                   errorMessage,
@@ -20,12 +27,21 @@ export function LineComponent({
     const [y1, setY1] = useState(defaultLineY1);
     const [y2, setY2] = useState(defaultLineY2);
 
-    if (isSuccess) handleNext();
+    const onNext = () => {
+        if (isSuccess) handleNext();
+    };
+
+    const onSubmit = () => {
+        setLineRequest({x1, y1, x2, y2});
+    };
 
     if (isLoading) return <LinearProgress/>;
 
     return (
         <>
+            {
+                isSuccess && <Toast message={messages.newLineAdded} type="success"/>
+            }
             {
                 errorMessage && <Toast message={errorMessage}/>
             }
@@ -95,7 +111,10 @@ export function LineComponent({
                     />
                 </Grid>
             </Grid>
-            <Submit onClick={() => setLineRequest({x1, y1, x2, y2})} disabled={!x1 || !x2 || !y1 || !y2}/>
+            <Submit onNext={onNext}
+                    onSubmit={onSubmit}
+                    nextDisabled={!isSuccess}
+                    submitDisabled={!x1 || !x2 || !y1 || !y2}/>
         </>
     )
 }

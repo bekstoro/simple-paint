@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 import {selectCanvas} from '../applets/canvas';
 import {selectFill} from '../applets/fill';
-import {selectLine} from '../applets/line';
-import {selectRectangle} from '../applets/rectangle';
-import {fillBoard, getBoard, getLineCoordinates, getRectangleCoordinates} from '../helpers/board.helper';
+import {selectLines} from '../applets/line';
+import {selectRectangles} from '../applets/rectangle';
+import {fillBoard, getBoard, getLinesCoordinates, getRectanglesCoordinates} from '../helpers/board.helper';
 
 const styles = () => ({
     table: {
@@ -27,13 +27,13 @@ const styles = () => ({
 function BoardComponent({
                             canvas,
                             fill,
-                            line,
-                            rectangle,
+                            lines,
+                            rectangles,
                             classes
                         }) {
-    const lineCoordinates = getLineCoordinates(line);
-    const rectangleCoordinates = getRectangleCoordinates(rectangle);
-    const [board, setBoard] = useState(getBoard(canvas.height, canvas.width, lineCoordinates, rectangleCoordinates));
+    const linesCoordinates = getLinesCoordinates(lines);
+    const rectanglesCoordinates = getRectanglesCoordinates(rectangles);
+    const [board, setBoard] = useState(getBoard(canvas.height, canvas.width, linesCoordinates, rectanglesCoordinates));
     return (
         <table className={classes.table}>
             <tbody>
@@ -66,15 +66,15 @@ function BoardComponent({
 BoardComponent.propTypes = {
     canvas: PropTypes.object.isRequired,
     fill: PropTypes.object.isRequired,
-    line: PropTypes.object.isRequired,
-    rectangle: PropTypes.object.isRequired
+    lines: PropTypes.array.isRequired,
+    rectangles: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
     canvas: selectCanvas(state),
     fill: selectFill(state),
-    line: selectLine(state),
-    rectangle: selectRectangle(state)
+    lines: selectLines(state),
+    rectangles: selectRectangles(state)
 });
 
 export const Board = connect(

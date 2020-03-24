@@ -34,3 +34,8 @@ export const validationMessages = {
     shouldNotBeEqualByXYCoordinates: 'Should not be equal by X or Y coordinates',
     somethingWentWrong: 'Something went wrong'
 };
+
+export const messages = {
+    newLineAdded: 'New line is added',
+    newRectangleAdded: 'New rectangle is added'
+};
