@@ -37,19 +37,23 @@ export const mockInitialState = {
         errorMessage: '',
         isLoading: false,
         isSuccess: false,
-        x1: defaultLineX1,
-        x2: defaultLineX2,
-        y1: defaultLineY1,
-        y2: defaultLineY2
+        entities: [{
+            x1: defaultLineX1,
+            x2: defaultLineX2,
+            y1: defaultLineY1,
+            y2: defaultLineY2
+        }]
     },
     rectangle: {
         errorMessage: '',
         isLoading: false,
         isSuccess: false,
-        x1: defaultRectangleX1,
-        x2: defaultRectangleX2,
-        y1: defaultRectangleY1,
-        y2: defaultRectangleY2
+        entities: [{
+            x1: defaultRectangleX1,
+            x2: defaultRectangleX2,
+            y1: defaultRectangleY1,
+            y2: defaultRectangleY2
+        }]
     }
 };
 

@@ -3,7 +3,6 @@ import {shallow} from 'enzyme';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {FillComponent} from '../../../applets/fill/fill.component';
-import {Submit} from '../../../components/submit.component';
 import {Toast} from '../../../components/toast.component';
 import {validationMessages} from '../../../App.constants';
 
@@ -31,11 +30,5 @@ describe('Fill component', () => {
     it('should render Toast', () => {
         const component = shallow(<FillComponent {...props} errorMessage={validationMessages.somethingWentWrong}/>);
         expect(component.find(Toast)).toHaveLength(1);
-    });
-
-    it('should call setFillRequest', () => {
-        const component = shallow(<FillComponent {...props}/>);
-        component.find(Submit).at(0).simulate('click');
-        expect(props.setFillRequest).toHaveBeenCalled();
     });
 });
